@@ -4,12 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using VoiceAPI.Helpers;
-using VoiceAPI.IRepositories;
-using VoiceAPI.IRepository;
-using VoiceAPI.IServices;
-using VoiceAPI.Repositories;
-using VoiceAPI.Repository;
-using VoiceAPI.Services;
+
 
 namespace VoiceAPI.DI
 {
@@ -17,13 +12,13 @@ namespace VoiceAPI.DI
     {
         public static void ConfigServiceDI(this IServiceCollection services)
         {
-            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+          //  services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 
             //Tools
             services.AddScoped<ITools, Tools>();
 
             // Auth
-            services.AddScoped<IAuthService, AuthService>();
+          /*  services.AddScoped<IAuthService, AuthService>();
 
             // Account
             services.AddScoped<IAccountRepository, AccountRepository>();
@@ -59,7 +54,7 @@ namespace VoiceAPI.DI
 
             // Ward
             services.AddScoped<IWardRepository, WardRepository>();
-            services.AddScoped<IWardService, WardService>();
+            services.AddScoped<IWardService, WardService>();*/
         }
     }
 }
