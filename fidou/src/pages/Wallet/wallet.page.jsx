@@ -59,9 +59,9 @@ const Wallet = () => {
             <strong>Nội dung:</strong>
             <p>VOICE_MOMO {wallet?.depositCode}</p>
           </div>
-          <div className="momo__qr">
+          {/* <div className="momo__qr">
             <img src="/images/momo-qr-code.jpg" alt="momo-qr-code" />
-          </div>
+          </div> */}
         </div>
 
         <div className="zalo">
@@ -70,9 +70,9 @@ const Wallet = () => {
             <strong>Nội dung:</strong>
             <p>VOICE_ZALO {wallet?.depositCode}</p>
           </div>
-          <div className="zalo__qr">
+          {/* <div className="zalo__qr">
             <img src="/images/zalopay.jpg" alt="zalo-qr-code" />
-          </div>
+          </div> */}
         </div>
       </div>
       
