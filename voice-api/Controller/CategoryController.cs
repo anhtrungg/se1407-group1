@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using VoiceAPI.Categories;
+using VoiceAPI.DbContextVoiceAPI;
+using VoiceAPI.Entities;
 
 namespace VoiceAPI.Controller
 {
@@ -11,24 +13,49 @@ namespace VoiceAPI.Controller
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        public static List<CategoryVM> categories = new List<CategoryVM>();
+        private readonly VoiceAPIDbContext _context;
+
+        public CategoryController(VoiceAPIDbContext context)
+        {
+            _context = context;
+        }
 
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(categories);
+            var listCategories = _context.Categories.ToList();
+            return Ok(listCategories);
         }
 
-        [HttpGet ("{id}")]
+        [HttpGet("{id}")]
         public IActionResult GetById(string id)
         {
             try
             {
-                var category = categories.SingleOrDefault(ct => ct.Id == Guid.Parse(id));
+                var category = _context.Categories.SingleOrDefault(ct => ct.Id == Guid.Parse(id));
                 if (category == null)
                 {
                     return NotFound();
                 }
+                return Ok(category);
+            } 
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Create(CategoryVM model)
+        {
+            try
+            {
+                var category = new Category
+                {
+                    Name = model.Name
+                };
+                _context.Add(category);
+                _context.SaveChanges();
                 return Ok(category);
             }
             catch
@@ -37,43 +64,27 @@ namespace VoiceAPI.Controller
             }
         }
 
-        [HttpPost]
-        public IActionResult Create(CategoryVM categoryVM)
-        {
-            var category = new CategoryVM
-            {
-                Id = Guid.NewGuid(),
-                Name = categoryVM.Name
-            };
-            categories.Add(category);
-            return Ok(new
-            {
-                Success = true,
-                Data = category
-            });
-        }
-
-        [HttpPut ("{id}")]
-        public IActionResult Edit(string id, CategoryVM categoryEdit)
+        [HttpPut("{id}")]
+        public IActionResult UdateById(string id, CategoryVM model)
         {
             try
             {
-                var category = categories.SingleOrDefault(ct => ct.Id == Guid.Parse(id));
-                if (category == null)
+                var category = _context.Categories.SingleOrDefault(ct => ct.Id == Guid.Parse(id));
+                if (category != null)
                 {
-                    return NotFound();
+                    category.Name = model.Name;
+                    _context.SaveChanges();
+                    return Ok();
                 }
-                
                 if (id != category.Id.ToString())
                 {
                     return BadRequest();
                 }
-                category.Name = categoryEdit.Name;
-                return Ok();
+                return NotFound();
             }
-            catch
-            {
-                return BadRequest();
+            catch 
+            { 
+                return BadRequest(); 
             }
         }
     }
