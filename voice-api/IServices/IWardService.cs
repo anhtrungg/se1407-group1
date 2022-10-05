@@ -11,6 +11,7 @@ namespace VoiceAPI.IServices
     public interface IWardService
     {
         Task<GenericResult<List<WardDTO>>> CreateAllNew(List<WardCreatePayload> payloads);
+        Task CreateAllNew(WardCreatePayload payload);
         Task<GenericResult<List<WardDTO>>> GetAll();
         Task<GenericResult<WardDTO>> GetById(string code);
         Task<GenericResult<WardDTO>> GetByName(string name);

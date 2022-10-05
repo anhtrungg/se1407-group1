@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ using VoiceAPI.Models.Responses.Wards;
 
 namespace VoiceAPI.Services
 {
-    public class WardService : IWardService
+    public class WardService : ControllerBase
     {
         private readonly IMapper _mapper;
 
