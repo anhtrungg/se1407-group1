@@ -9,28 +9,28 @@ using System.Threading.Tasks;
 using VoiceAPI.Helpers;
 using VoiceAPI.IServices;
 using VoiceAPI.Models.Common;
-using VoiceAPI.Models.Payload.Provinces;
-using VoiceAPI.Models.Responses.Provinces;
+using VoiceAPI.Models.Payload.SubCategories;
+using VoiceAPI.Models.Responses.SubCategories;
 
 namespace VoiceAPI.Controllers
 {
-    [Route("api/v{version:apiVersion}/provinces")]
+    [Route("api/v{version:apiVersion}/sub-categories")]
     [ApiController]
     [ApiVersion("1")]
-    public class ProvinceController : ControllerBase
+    public class SubCategoryController : ControllerBase
     {
         private readonly IMapper _mapper;
         private readonly ITools _tools;
 
-        private readonly IProvinceService _provinceService;
+        private readonly ISubCategoryService _subCategoryService;
 
-        public ProvinceController(IMapper mapper, ITools tools, 
-            IProvinceService provinceService)
+        public SubCategoryController(IMapper mapper, ITools tools, 
+            ISubCategoryService subCategoryService)
         {
             _mapper = mapper;
             _tools = tools;
 
-            _provinceService = provinceService;
+            _subCategoryService = subCategoryService;
         }
 
         [HttpGet]
@@ -42,11 +42,11 @@ namespace VoiceAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var result = await _provinceService.GetAll();
+            var result = await _subCategoryService.GetAll();
 
             // Return with statusCode=200 and data if success
             if (result.IsSuccess)
-                return Ok(new MultiObjectResponse<ProvinceDTO>(result.Data));
+                return Ok(new MultiObjectResponse<SubCategoryDTO>(result.Data));
 
             // Add error response data informations
             Response.StatusCode = result.StatusCode;
@@ -58,18 +58,18 @@ namespace VoiceAPI.Controllers
 
         [HttpGet("{id}")]
         [MapToApiVersion("1")]
-        public async Task<IActionResult> GetById(string id)
+        public async Task<IActionResult> GetAllWithSubCategories(Guid id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var result = await _provinceService.GetById(id);
+            var result = await _subCategoryService.GetById(id);
 
             // Return with statusCode=200 and data if success
             if (result.IsSuccess)
-                return Ok(new SingleObjectResponse<ProvinceDTO>(result.Data));
+                return Ok(new SingleObjectResponse<SubCategoryDTO>(result.Data));
 
             // Add error response data informations
             Response.StatusCode = result.StatusCode;
@@ -82,19 +82,19 @@ namespace VoiceAPI.Controllers
         [HttpPost]
         [MapToApiVersion("1")]
         [Authorize(Roles = "ADMIN")]
-        public async Task<IActionResult> GetById(List<ProvinceCreatePayload> payloads)
+        public async Task<IActionResult> CreateCategory(SubCategoryCreatePayload payload)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var result = await _provinceService.CreateAllNew(payloads);
+            var result = await _subCategoryService.CreateNew(payload);
 
-            // Return with statusCode=201 and data if success
+            // Return with statusCode=200 and data if success
             if (result.IsSuccess)
                 return StatusCode((int)HttpStatusCode.Created, 
-                    new MultiObjectResponse<ProvinceDTO>(result.Data));
+                            new SingleObjectResponse<SubCategoryDTO>(result.Data));
 
             // Add error response data informations
             Response.StatusCode = result.StatusCode;
