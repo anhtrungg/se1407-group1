@@ -38,12 +38,12 @@ import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBUbL401eFQ9vziQJiIOsAjTxHZG5s9TzY",
-  authDomain: "fidou-b6a80.firebaseapp.com",
-  projectId: "fidou-b6a80",
-  storageBucket: "fidou-b6a80.appspot.com",
-  messagingSenderId: "51694981598",
-  appId: "1:51694981598:web:34617544534603c45f4d4f"
+  apiKey: "AIzaSyAsem870UdpZSF10dPiGwjouLb82ftVEEA",
+  authDomain: "voice-project-f2a8b.firebaseapp.com",
+  projectId: "voice-project-f2a8b",
+  storageBucket: "voice-project-f2a8b.appspot.com",
+  messagingSenderId: "605857742441",
+  appId: "1:605857742441:web:b177c0818f004e3b982cf8"
 };
 
 
