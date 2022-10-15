@@ -440,8 +440,8 @@ function UpdateCandidate() {
   return (
     <div className="updatecandidate">
       <UpdateTemplate
-        saveFunction={handleSubmit(handelUpdateCandidateDataV2)}
-        fieldsDispatch={fieldsDispatch}
+       saveFunction={handleSubmit(handelUpdateCandidateDataV2)}
+       fieldsDispatch={fieldsDispatch}
         fields={fields}
         imgField={'avatarUrl'}
       >

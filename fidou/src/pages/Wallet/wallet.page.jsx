@@ -40,11 +40,11 @@ const Wallet = () => {
         <div className="money">
           <div className="item">
             <strong>Chuyển tiền đến stk:</strong>
-            <p>0192318923</p>
+            <p>9967276988</p>
           </div>
           <div className="item">
             <strong>Ngân hàng:</strong>
-            <p>vietcombank</p>
+            <p>MB Bank</p>
           </div>
 
           <div className="item">
